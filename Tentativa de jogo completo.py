@@ -49,7 +49,8 @@ def desenhafiguras(color= BRANCO):
     for lin in range(LINHAS):
         for col in range(COLUNAS):
             if tabuleiro[lin][col] == 1:
-                pygame.draw.line(tela, color,(col * QUADRADO + QUADRADO // 4, lin * QUADRADO + QUADRADO // 4), (col * QUADRADO + 3 * QUADRADO // 4, lin * QUADRADO + 3 * QUADRADO // 4), XIS)
+                pygame.draw.line(tela, color,(col * QUADRADO + QUADRADO // 4, lin * QUADRADO + QUADRADO // 4), (col * QUADRADO + 3 * QUADRADO // 4, lin * QUADRADO + 3 * QUADRADO // 4), XIS) #Desenha uma linha na diagonal da esquerda superior para a direita inferior do quadrado
+                pygame.draw.line(tela, color, (col * QUADRADO + QUADRADO // 4, lin * QUADRADO + 3 * QUADRADO // 4), (col * QUADRADO + 3 * QUADRADO // 4, lin * QUADRADO + QUADRADO // 4), XIS)#Mesmo código com o eixo invertido, desenhando assim da esquerda inferior para direita inferior, como são feitos os dois todas as vezes, ficamos com um X
                 
             elif tabuleiro[lin][col] == 2:
                 pygame.draw.circle(tela, color, (int(col * QUADRADO + QUADRADO // 2), int(lin * QUADRADO + QUADRADO // 2)), CIRCULORAIO, CIRCULOLARGURA) #Desenha o circulo para a IA, calcula o centro do quadrado horizontalmente e verticalmente, utiliza as coordenadas para imprimir de maneira centralizada o círculo
