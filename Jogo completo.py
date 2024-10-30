@@ -6,8 +6,8 @@ pygame.init()
 
 #Glossário
 #lin são linhas e col colunas
-#
-#
+
+
 
 
 #Cores
@@ -202,7 +202,7 @@ while True:
             desenhalinhas(VERMELHO)  
         
         else:
-            desenhafiguras(CINZA) # Cinza para empates
+            desenhafiguras(CINZA) #Cinza para empates
             desenhalinhas(CINZA)
 
     pygame.display.update()
