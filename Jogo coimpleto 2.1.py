@@ -43,17 +43,33 @@ def desenhalinhas(color=BRANCO):
         pygame.draw.line(tela, color, (QUADRADO * i, 0), (QUADRADO * i, ALTURA), GROSSLINHA)
 
 def desenhafiguras(color=BRANCO):
-    # Desenha os 'X' e 'O' no tabuleiro de acordo com o estado atual do jogo
+    # Desenha as figuras ('X' e 'O') no tabuleiro, de acordo com o estado atual do jogo.
+    # A função percorre o tabuleiro e, dependendo do valor nas células, desenha um 'X' ou um 'O'.
+
+    # Laço que percorre todas as linhas do tabuleiro.
     for lin in range(LINHAS):
+        # Laço que percorre todas as colunas do tabuleiro.
         for col in range(COLUNAS):
-            if tabuleiro[lin][col] == 1:  # Jogador 1 (X)
-                pygame.draw.line(tela, color, (col * QUADRADO + QUADRADO // 4, lin * QUADRADO + QUADRADO // 4),
-                                 (col * QUADRADO + 3 * QUADRADO // 4, lin * QUADRADO + 3 * QUADRADO // 4), XIS)
-                pygame.draw.line(tela, color, (col * QUADRADO + QUADRADO // 4, lin * QUADRADO + 3 * QUADRADO // 4),
-                                 (col * QUADRADO + 3 * QUADRADO // 4, lin * QUADRADO + QUADRADO // 4), XIS)
-            elif tabuleiro[lin][col] == 2:  # Jogador 2 (O)
-                pygame.draw.circle(tela, color, (int(col * QUADRADO + QUADRADO // 2), int(lin * QUADRADO + QUADRADO // 2)),
-                                   CIRCULORAIO, CIRCULOLARGURA)
+            # Verifica o valor da célula no tabuleiro (0: vazio, 1: jogador, 2: IA)
+            if tabuleiro[lin][col] == 1:
+                # Se o valor for 1, significa que o jogador fez a jogada (marca 'X').
+                
+                # Desenha o 'X' utilizando duas linhas que se cruzam.
+                # As linhas são desenhadas no centro do quadrado, com uma espessura definida por XIS.
+                #As coordenadas de cada linha são calculadas com base na posição da célula (representada por lin e col) e no tamanho do quadrado (QUADRADO).
+                #A fórmula (col * QUADRADO + QUADRADO // 4, lin * QUADRADO + QUADRADO // 4) define o ponto inicial da linha. Este ponto está deslocado para a posição inicial do quadrado e um pouco para dentro (1/4 do tamanho do quadrado).
+                #A fórmula (col * QUADRADO + 3 * QUADRADO // 4, lin * QUADRADO + 3 * QUADRADO // 4) define o ponto final da linha, deslocando-se para o ponto oposto do quadrado (3/4 do tamanho do quadrado).
+                pygame.draw.line(tela, color, (col * QUADRADO + QUADRADO // 4, lin * QUADRADO + QUADRADO // 4), (col * QUADRADO + 3 * QUADRADO // 4, lin * QUADRADO + 3 * QUADRADO // 4), XIS)
+                pygame.draw.line(tela, color, (col * QUADRADO + QUADRADO // 4, lin * QUADRADO + 3 * QUADRADO // 4), (col * QUADRADO + 3 * QUADRADO // 4, lin * QUADRADO + QUADRADO // 4), XIS)
+
+            elif tabuleiro[lin][col] == 2:
+                # Se o valor for 2, significa que a IA fez a jogada (marca 'O').
+                
+                # Desenha o 'O' como um círculo centrado no quadrado.
+                # O centro do círculo é calculado como o ponto médio de cada quadrado com a fórmula (col * QUADRADO + QUADRADO // 2).
+                # O raio do círculo é dado por CIRCULORAIO e a espessura da borda é CIRCULOLARGURA.
+                pygame.draw.circle(tela, color, (int(col * QUADRADO + QUADRADO // 2), int(lin * QUADRADO + QUADRADO // 2)), CIRCULORAIO, CIRCULOLARGURA)
+
 
 def marcar_quadrado(lin, col, player):
     # Marca um quadrado no tabuleiro para o jogador correspondente
@@ -184,17 +200,48 @@ def reiniciarjogo():
             tabuleiro[lin][col] = 0
 
 def desenhar_botoes():
-    #Desenha os botões de seleção de dificuldade na tela
+    # Cria e desenha os botões de seleção de dificuldade na tela.
+
+    # Define a fonte a ser usada para o texto dos botões. 
+    # A função `pygame.font.Font` recebe `None` para usar a fonte padrão e o tamanho de 74.
     fonte = pygame.font.Font(None, 74)
+
+    # Cria o retângulo do botão de dificuldade "Fácil".
+    # `pygame.Rect(x, y, largura, altura)` cria um retângulo na posição (50, 260) com tamanho 200x50.
     botao_facil = pygame.Rect(50, 260, 200, 50)
+
+    # Cria o retângulo do botão de dificuldade "Difícil".
+    # Este retângulo está localizado em (350, 260) com tamanho 200x50.
     botao_dificil = pygame.Rect(350, 260, 200, 50)
+
+    # Desenha o retângulo do botão "Fácil" na tela.
+    # A cor do botão é definida como `VERDE`.
     pygame.draw.rect(tela, VERDE, botao_facil)
+
+    # Desenha o retângulo do botão "Difícil" na tela.
+    # A cor do botão é definida como `VERMELHO`.
     pygame.draw.rect(tela, VERMELHO, botao_dificil)
+
+    # Renderiza o texto "Fácil" usando a fonte definida.
+    # A cor do texto é `PRETO`, criando contraste com o fundo verde do botão.
     texto_facil = fonte.render('Fácil', True, PRETO)
+
+    # Renderiza o texto "Difícil" usando a fonte definida.
+    # A cor do texto é `PRETO`, criando contraste com o fundo vermelho do botão.
     texto_dificil = fonte.render('Difícil', True, PRETO)
-    tela.blit(texto_facil, (90, 270))  # Ajustar posição
-    tela.blit(texto_dificil, (370, 270))  # Ajustar posição
+
+    # Posiciona o texto "Fácil" na tela dentro do botão correspondente.
+    # `tela.blit` desenha o texto renderizado na posição especificada (90, 270).
+    tela.blit(texto_facil, (90, 270))
+
+    # Posiciona o texto "Difícil" na tela dentro do botão correspondente.
+    # `tela.blit` desenha o texto renderizado na posição especificada (370, 270).
+    tela.blit(texto_dificil, (370, 270))
+
+    # Retorna os objetos de retângulo criados para os botões.
+    # Isso permite que o programa identifique se o usuário clicou em um dos botões.
     return botao_facil, botao_dificil
+
 
 
 #Main
