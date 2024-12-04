@@ -2,10 +2,19 @@ import sys
 import pygame
 import numpy
 
-pygame.init()
+#Membros
+
+#Arthur Reina Lyra - 12722124645
+#Elaine Santana Gonzaga - 12722131402
+#Isac Daniel Pereira de Almeida - 12723116417
+#João Victor Pinho de Castro - 1272328040
+#Nelson Anísio Nascimento do Carmo - 1272018392
 
 #Glossário
 #lin são linhas e col colunas
+
+
+pygame.init()
 
 
 
